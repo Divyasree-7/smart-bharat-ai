@@ -136,3 +136,52 @@ This assistant provides AI-generated guidance for informational purposes only. I
 ---
 
 Built with 🧡 for Digital India — Hackathon Project.
+
+
+
+
+
+
+## Project Description
+Smart Bharat AI is an AI-powered civic assistant that helps everyday Indian citizens navigate government services without confusion. Millions of people struggle with unclear eligibility rules, scattered information, and not knowing which office or portal to approach for something as simple as updating an Aadhaar address or reporting a broken streetlight.
+Smart Bharat AI solves this by turning any civic question — asked in plain Hindi or English — into a clear, step-by-step action plan. The assistant identifies what the citizen actually needs (a government service, a complaint, a welfare scheme, or document help), then responds in a consistent, easy-to-scan format: a one-line summary, numbered steps, required documents, common-mistake warnings, official resource links, and a follow-up question to keep the conversation going.
+Beyond a general chat interface, the platform includes two purpose-built tools: a Scheme Finder that recommends welfare schemes based on a citizen's age, occupation, income, and state, and a Complaint Assistant that identifies the right department for a civic issue and drafts a ready-to-submit complaint message. The app is fully responsive, supports light and dark mode, and runs on Groq's free, low-latency Llama 3.3 API — making it accessible to build and deploy without any paid infrastructure.
+
+
+
+
+Here's both, written for a hackathon submission form — copy-paste ready:
+
+---
+
+## Project Description
+
+**Smart Bharat AI** is an AI-powered civic assistant that helps everyday Indian citizens navigate government services without confusion. Millions of people struggle with unclear eligibility rules, scattered information, and not knowing which office or portal to approach for something as simple as updating an Aadhaar address or reporting a broken streetlight.
+
+Smart Bharat AI solves this by turning any civic question — asked in plain Hindi or English — into a clear, step-by-step action plan. The assistant identifies what the citizen actually needs (a government service, a complaint, a welfare scheme, or document help), then responds in a consistent, easy-to-scan format: a one-line summary, numbered steps, required documents, common-mistake warnings, official resource links, and a follow-up question to keep the conversation going.
+
+Beyond a general chat interface, the platform includes two purpose-built tools: a **Scheme Finder** that recommends welfare schemes based on a citizen's age, occupation, income, and state, and a **Complaint Assistant** that identifies the right department for a civic issue and drafts a ready-to-submit complaint message. The app is fully responsive, supports light and dark mode, and runs on Groq's free, low-latency Llama 3.3 API — making it accessible to build and deploy without any paid infrastructure.
+
+---
+
+## Prompt Workflow / Strategy
+
+The core of Smart Bharat AI is a single, tightly-structured **system prompt** that governs every response, sent alongside conversation history on every request to Groq's chat completions endpoint.
+
+**1. Role and constraint framing.** The system prompt anchors the model as "Smart Bharat AI," a civic assistant, and explicitly assumes the user may have low technical literacy — this steers the model away from jargon by default rather than relying on the user to ask for simpler language.
+
+**2. Intent classification before response.** The prompt instructs the model to first silently classify the request into one of five types — government service, complaint, scheme/benefit, document help, or general query — before answering. This keeps multi-purpose queries from getting a generic, unfocused reply.
+
+**3. Enforced output schema.** Rather than letting responses vary in structure, the prompt mandates a fixed section format with exact emoji headers (✅ Summary, 📌 Steps to Follow, 📄 Required Documents, ⚠️ Important Tips, 🌐 Useful Resources, 🧑 Follow-up). This was the single biggest lever for making AI output feel like a trustworthy product rather than a raw chatbot — it's predictable, scannable, and renders cleanly through Markdown in the UI.
+
+**4. Task-specific prompt injection on top of the shared system prompt.** The Scheme Finder and Complaint Assistant pages don't just reuse the chat — they programmatically construct a tailored user-turn prompt from structured form inputs (e.g. age, occupation, income, state for schemes; category, location, description for complaints) and send it through the same system prompt. This gets the reliability of a form with the flexibility of natural-language generation.
+
+**5. Guardrails against hallucinated policy.** The prompt explicitly instructs the model to say "please verify on the official government website" rather than inventing fees, eligibility cutoffs, or deadlines it isn't confident about — critical for a domain where wrong information has real consequences.
+
+**6. Low temperature (0.4).** Tuned down from default to prioritize consistency of format and factual caution over creative variance, since users are following these steps literally.
+
+Want me to also add a "Tech Stack" or "Challenges Faced" section, since hackathon forms often ask for those too?
+
+
+
+
