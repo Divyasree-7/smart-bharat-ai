@@ -1,4 +1,4 @@
-# 🛕 Smart Bharat AI
+#  Smart Bharat AI
 
 An AI-powered civic assistant for India — built as a hackathon project. It helps citizens understand government services, file civic complaints, discover welfare schemes, and get document guidance, in plain, step-by-step language (Hindi + English).
 
