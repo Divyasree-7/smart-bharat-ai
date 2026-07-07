@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  scroll-behavior: smooth;
+}
+
+html, body {
+  @apply font-body;
+}
+
+body {
+  @apply bg-kagaz text-raat transition-colors duration-300;
+}
+
+body.dark {
+  @apply bg-raat text-kagaz;
+}
+
+::selection {
+  @apply bg-marigold/30;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-marigold/40 rounded-full;
+}
+
+/* Glassmorphism card */
+.glass {
+  @apply bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-white/40 dark:border-white/10 shadow-glass dark:shadow-glass-dark;
+}
+
+.glass-solid {
+  @apply bg-white/90 dark:bg-raat-50/90 backdrop-blur-xl border border-slateink/10 dark:border-white/10;
+}
+
+/* Focus visibility for accessibility */
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 2px solid #E08D3C;
+  outline-offset: 2px;
+}
+
+/* Chakra spinner used as signature motif across the app */
+.chakra {
+  width: 100%;
+  height: 100%;
+  animation: spinslow 12s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, .chakra, .animate-spinslow, .animate-floaty {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #E08D3C 0%, #F2A85C 45%, #1F6F54 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl bg-marigold hover:bg-marigold-dark text-white font-semibold px-6 py-3 transition-all duration-200 shadow-lg shadow-marigold/20 hover:shadow-marigold/40 hover:-translate-y-0.5 active:translate-y-0;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl border border-raat/15 dark:border-white/20 hover:border-marigold text-raat dark:text-kagaz font-semibold px-6 py-3 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0;
+}
+
+.chip {
+  @apply text-xs font-mono uppercase tracking-wider px-3 py-1 rounded-full border border-banyan/30 text-banyan dark:text-banyan-light bg-banyan/5;
+}
